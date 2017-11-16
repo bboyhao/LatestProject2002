@@ -32,7 +32,7 @@ public class Ticket implements Serializable{
                                 return transactionID;
                 }
                 
-                public ShowingSchedule getShowingSchedual() {
+                public ShowingSchedule getShowingSchedule() {
                                 return showingSchedule;
                 }
                 

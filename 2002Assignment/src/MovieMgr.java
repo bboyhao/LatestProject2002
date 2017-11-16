@@ -37,8 +37,7 @@ public class MovieMgr implements Serializable{
                 }
 
                 public ArrayList<Movie> findMovie(String movieTitle){
-                                int targetLength;
-                                int sourceLength = movieTitle.length();
+                   
                                 ArrayList<Movie> resultList = new ArrayList<Movie>();
 
                                 try          {
@@ -46,12 +45,9 @@ public class MovieMgr implements Serializable{
                                                 this.movieList = readInMovie("Movie.ser");
                                                 
                                                 for (int i = 0; i < movieList.size(); i++){
-                                                                targetLength = movieList.get(i).getTitle().length();
-                                                                for (int k = 0; k <= (targetLength - sourceLength); k++)
-                                                                                if (movieList.get(i).getTitle().regionMatches(k, movieTitle, 0, sourceLength))
-                                                                                                resultList.add(this.movieList.get(i));
+                                                        if (movieList.get(i).getTitle().equals(movieTitle))
+                                                              resultList.add(this.movieList.get(i));
                                                 }
-                                                return resultList;
                                 } catch ( Exception e ) {
                                                 System.out.println( "Exception >> " + e.getMessage() );
                                 }
@@ -112,14 +108,28 @@ public class MovieMgr implements Serializable{
                                 try          {
                                                 this.movieList = readInMovie("Movie.ser");
                                                 //Collections.sort(movieList, MovieMgr.MovieSaleComparator);
-
-                                                System.out.println("====="
-                                                		+ "=====Top Five Movies By Sales==========");
-                                                for (int i = 0 ; i < 5 ; i++) {
-                                                                Movie m = movieList.get(i);
-                                                                top5.add(m);
-                                                                m.printMovieInfo();
+                                                for(int i =0;i<movieList.size();i++){
+                                                	for(int j = 0;j<movieList.size()-1;j++){
+                                                		Movie m = movieList.get(j);
+                                                		if(m.getSale()<movieList.get(j+1).getSale()){
+                                                			movieList.remove(j);
+                                                			movieList.add(j+1,m);
+                                                		}
+                                                	}
                                                 }
+                                                if(movieList.size()<5) {
+                                                	for(int i = 0;i<movieList.size();i++)top5.add(movieList.get(i));
+                                                }
+                                                else for(int i =0;i<5;i++)top5.add(movieList.get(i)); 
+//                                                
+//
+//                                                System.out.println("====="
+//                                                		+ "=====Top Five Movies By Sales==========");
+//                                                for (int i = 0 ; i < 5 ; i++) {
+//                                                                Movie m = movieList.get(i);
+//                                                                top5.add(m);
+//                                                                m.printMovieInfo();
+//                                                }
                                 } catch ( Exception e ) {
                                                 System.out.println( "Exception >> " + e.getMessage() );
                                 }
@@ -141,13 +151,26 @@ public class MovieMgr implements Serializable{
                                 try          {
                                                 this.movieList = readInMovie("Movie.ser");
                                                 //Collections.sort(movieList, MovieMgr.MovieRatingComparator);
-                                
-                                                System.out.println("==========Top Five Movies By Rating==========");
-                                                for (int i = 0 ; i < 5 ; i++) {
-                                                                Movie m = (Movie)movieList.get(i);
-                                                                top5.add(m);
-                                                                m.printMovieInfo();
+
+                                                for(int i =0;i<movieList.size();i++){
+                                                	for(int j = 0;j<movieList.size()-1;j++){
+                                                		Movie m = movieList.get(j);
+                                                		if(m.getOverallRating()<movieList.get(j+1).getOverallRating()){
+                                                			movieList.remove(j);
+                                                			movieList.add(j+1,m);
+                                                		}
+                                                	}
                                                 }
+                                                if(movieList.size()<5) {
+                                                	for(int i = 0;i<movieList.size();i++)top5.add(movieList.get(i));
+                                                }
+                                                else for(int i =0;i<5;i++)top5.add(movieList.get(i));
+//                                                System.out.println("==========Top Five Movies By Rating==========");
+//                                                for (int i = 0 ; i < 5 ; i++) {
+//                                                                Movie m = (Movie)movieList.get(i);
+//                                                                top5.add(m);
+//                                                                m.printMovieInfo();
+//                                                }
                                 } catch ( Exception e ) {
                                                 System.out.println( "Exception >> " + e.getMessage() );
                                 }

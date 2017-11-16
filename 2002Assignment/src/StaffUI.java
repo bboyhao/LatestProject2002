@@ -11,7 +11,8 @@ public class StaffUI {
 			System.out.println("5.Update status of a movie");
 			System.out.println("6.List the top 5 movies by ticket sales");
 			System.out.println("7.List the top 5 movies by overall ratings");
-			System.out.println("8.Exit");
+			System.out.println("8.Enter another showing");
+			System.out.println("9.Exit");
 			
 			int instruction  = sc.nextInt();
 			sc.nextLine();
@@ -23,7 +24,8 @@ public class StaffUI {
 				case 5: this.updateMovieStatus(); break;
 				case 6: this.listTopSale();break;
 				case 7: this.listTopRating(); break;
-				case 8: System.exit(0);break;
+				case 8: this.addShowing();break
+				case 9: System.exit(0); break;
 				default: System.out.println("Invalid, input again");
 
 			}

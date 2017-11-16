@@ -95,7 +95,7 @@ public class BookingMgr {
                                 try {
              FileInputStream fileIn = new FileInputStream(" "+movieGoer.getName()+".ser");
              ObjectInputStream in = new ObjectInputStream(fileIn);
-             transaction = (ArrayList)in.readObject();
+             transaction = (ArrayList<Ticket>)in.readObject();
              in.close();
              fileIn.close();
           } catch (Exception e) {

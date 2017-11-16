@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Cineplex {
+public class Cineplex implements Serializable{
 	private String name;
 	private String location;
 	private ArrayList<Cinema> cinemaList;
@@ -15,6 +16,7 @@ public class Cineplex {
 	
 	public void addCinema(Cinema newCinema){
 		cinemaList.add(newCinema);
+		numOfCinema++;
 	}
 	
 	public ArrayList<Cinema> getCinemaList(){

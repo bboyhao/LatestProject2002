@@ -11,7 +11,7 @@ import java.util.Iterator;
 //TODO add compare function in all entity classes
 public class CineplexMgr {
 	
-	private ArrayList cineplexList;
+	private ArrayList<Cineplex> cineplexList;
 	
 	public ArrayList<Cineplex> findAllCineplex(){
 		ObjectInputStream obin;

@@ -1,0 +1,10 @@
+=======================
+ _______screen_______  
+  ABCDEFGH  IJKLMNOP   
+A  OOOOOOO  OOOOOOO    
+B  OOOOOOO  OOOOOOO    
+C  OOOOOOO  OOOOOOO    
+D OOOOOOOO  OOOOOOOO   
+E OOOOOOOO  OOOOOOOO   
+F OOOOOOOO  OOOOOOOO   
+=======================

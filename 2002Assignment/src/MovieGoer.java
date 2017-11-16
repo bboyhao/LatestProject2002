@@ -32,7 +32,7 @@ public class MovieGoer implements Serializable {
 		return this.name;
 	}
 	
-	public ArrayList getTransactionHistory(){
+	public ArrayList<Ticket> getTransactionHistory(){
 		return this.transactionHistory;
 	}
 	

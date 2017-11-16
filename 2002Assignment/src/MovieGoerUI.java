@@ -138,7 +138,18 @@ public class MovieGoerUI {
       this.mList = this.movieMgr.findMovie(mTitle);
       printMovie();
       chooseMovie();
-      this.movieMgr.createReview(this.movieGoer, this.movieChoice);
+      System.out.println("Please enter your review for "+this.movieChoice.getTitle()+" below:");
+      String review = sc.nextLine();
+      System.out.println("Please enter your rating for "+this.movieChoice.getTitle()+"below"
+      		+ "\n(please enter an integer between 1 and 5 inclusive"
+      		+ " and 1 for the worst and 5 for the best):");
+      int rating=sc.nextInt();
+      while(rating<1||rating>5){
+    	  System.out.println("The rating must be an integer from 1 to 5 inclusive\nPlease enter another rating");
+    	  rating=sc.nextInt();
+      }
+      
+      this.movieMgr.createReview(this.movieGoer, this.movieChoice,review,rating);
    }
    public void listTopSale(){
       this.mList = this.movieMgr.findTopSale();
@@ -288,18 +299,7 @@ public class MovieGoerUI {
          printSchedule();
          if(chooseSchedule()==false) {
                 return;
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+                      
          }
          this.scheduleChoice.getSeatPlan().printSeatPlan();
          if (chooseSeat()==false) {
@@ -326,7 +326,20 @@ public class MovieGoerUI {
          double price = bookingMgr.calculatePrice(scheduleChoice, t);
          t.setPrice(price);
          displayPaymentMsg(t);
-         //TODO change sales in movie after payment
+         MovieMgr mMgr = new MovieMgr();
+         this.mList = mMgr.readInMovie("Movie.ser");
+         boolean is2d = t.getShowingSchedule().getMovie() instanceof TwoD;
+         for(int i = 0;i<mList.size();i++){
+        	 Movie m = mList.get(i);
+        	 if(m.getTitle().equals(t.getShowingSchedule().getMovie().getTitle())){
+        		 if(m instanceof TwoD&&is2d==true){
+        			 m.updateSale(price);
+        		 }
+        		 else if(m instanceof ThreeD&&is2d==false){
+        			 m.updateSale(price);
+        		 }
+        	 }
+         }
          bookingMgr.addTransaction(movieGoer, t);
          }
          else return;

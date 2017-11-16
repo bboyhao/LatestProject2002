@@ -2,13 +2,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
-public class SeatPlan {
-	private char[][] seatPlan;
+public class SeatPlan implements Serializable{
+	private char[][] seatPlan=new char[10][23];
+	
 	public SeatPlan(int choice){
 		switch(choice){
 		case 1:
-			String fileName="C:/Users/WUHA0/Desktop/seatplan/seatplan1.txt";
+			String fileName="seatplan1.txt";
 			try {
 				
 	            // FileReader reads text files in the default encoding.
@@ -21,7 +23,6 @@ public class SeatPlan {
 	
 	            for(int i=0;i<10;i++){
 	            	String thisline=bufferedReader.readLine();
-	            	System.out.println(thisline);
 	            	for(int j=0;j<23;j++){
 	            		seatPlan[i][j]=thisline.charAt(j);
 	            	}
@@ -33,11 +34,14 @@ public class SeatPlan {
 	        }catch(IOException ex) {
 	        	System.out.println("Error reading file '" + fileName + "'");                  
 	        	}
+			catch(NullPointerException e){
+				e.printStackTrace();
+			}
 			break;
 			
 			
 		case 2:
-			String fileName1="C:/Users/WUHA0/Desktop/seatplan/seatplan2.txt";
+			String fileName1="seatplan2.txt";
 			try {
 				
 	            // FileReader reads text files in the default encoding.
@@ -50,7 +54,6 @@ public class SeatPlan {
 	
 	            for(int i=0;i<10;i++){
 	            	String thisline=bufferedReader.readLine();
-	            	System.out.println(thisline);
 	            	for(int j=0;j<23;j++){
 	            		seatPlan[i][j]=thisline.charAt(j);
 	            	}
@@ -68,6 +71,8 @@ public class SeatPlan {
 				
 		}
 	}
+	
+	
 	public char[][] getSeatPlan(){
 		return seatPlan;
 	}

@@ -8,10 +8,80 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class BuildObjects {
-	public static void main(String args[]){
+//	public static void main(String args[]){
+//		ArrayList<Cineplex> cineplexList=new ArrayList<Cineplex>();
+//		Cineplex cineplex1=new Cineplex("CinePlex@Jurong Point","Jurong Point",0);
+//		Cineplex cineplex2=new Cineplex("CinePlex@Bugis","Bugis",0);
+//		Cineplex cineplex3=new Cineplex("CinePlex@Serangoon","Serangoon",0);
+//		cineplexList.add(cineplex1);
+//		cineplexList.add(cineplex2);
+//		cineplexList.add(cineplex3);
+//		Dolby dolby1 = new Dolby();
+//		dolby1.setCinemaCode("JP001D");
+//		Dolby dolby2 = new Dolby();
+//		dolby2.setCinemaCode("JP002D");
+//
+//		Dolby dolby3 = new Dolby();
+//		dolby3.setCinemaCode("Bugis001D");
+//
+//		Dolby dolby4 = new Dolby();
+//		dolby1.setCinemaCode("Bugis002D");
+//
+//		Dolby dolby5 = new Dolby();
+//		dolby1.setCinemaCode("Serangoon001D");
+//
+//		Dolby dolby6 = new Dolby();		
+//		dolby1.setCinemaCode("Sergangoon002D");
+//
+//
+//		Platinum platinum1 = new Platinum();
+//		platinum1.setCinemaCode("JP003P");
+//		Platinum platinum2 = new Platinum();
+//		platinum2.setCinemaCode("Bugis003P");
+//		Platinum platinum3 = new Platinum();
+//		platinum3.setCinemaCode("Serangoon003P");
+//
+//		cineplex1.addCinema(dolby1);
+//		cineplex1.addCinema(dolby2);
+//		cineplex1.addCinema(platinum1);
+//		
+//		cineplex2.addCinema(dolby3);
+//		cineplex2.addCinema(dolby4);
+//		cineplex2.addCinema(platinum2);
+//		
+//		cineplex3.addCinema(dolby5);
+//		cineplex3.addCinema(dolby6);
+//		cineplex3.addCinema(platinum3);
+//		
+//		
+//		SeatPlan planA=new SeatPlan(1);
+//		SeatPlan planB=new SeatPlan(2);
+//		dolby1.setSeatPlan(planA);
+//		dolby2.setSeatPlan(planA);
+//		dolby3.setSeatPlan(planA);
+//		dolby4.setSeatPlan(planA);
+//		dolby5.setSeatPlan(planA);
+//		dolby6.setSeatPlan(planA);
+//
+//		
+//		platinum1.setSeatPlan(planB);
+//		platinum2.setSeatPlan(planB);
+//		platinum3.setSeatPlan(planB);
+//		try{
+//			FileOutputStream fileout = new FileOutputStream("cineplexList.ser");
+//			ObjectOutputStream out = new ObjectOutputStream(fileout);
+//			out.writeObject(cineplexList);
+//			out.close();
+//			fileout.close();
+//			System.out.println("cineplexList is ceated!");
+//		}catch (IOException i) {
+//	         i.printStackTrace();
+//	      }
+		
 //		char seatArray[][]=new char[10][23] ;
 //		String fileName = "C:/Users/WUHA0/Desktop/seatplan/seatplan2.txt";
 //
@@ -52,8 +122,8 @@ public class BuildObjects {
 //            System.out.println(
 //                "Error reading file '" 
 //                + fileName + "'");                  
-//            // Or we could just do this: 
-//            // ex.printStackTrace();
+            // Or we could just do this: 
+            // ex.printStackTrace();
 //        }
 //		
 //		
@@ -92,9 +162,7 @@ public class BuildObjects {
 //			System.out.println();
 
 //		}
-		Date date=new Date();
-		SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddHHmm");
-    	System.out.println(ft.format(date));
+		
     }
-}
+
 
