@@ -22,6 +22,7 @@ public class TwoD extends Movie{
 	public void printMovieInfo(){
 		System.out.println(this.title + " [2D]");
 		System.out.println(this.movieStatus);
+		System.out.println("Total sale: "+this.sale);
 		System.out.println("Director: " + this.director);
 		System.out.print("Casts: ");
 		for (int i = 0; i < this.casts.size(); i++) {

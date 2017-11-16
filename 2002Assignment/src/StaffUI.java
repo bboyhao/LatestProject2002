@@ -24,8 +24,8 @@ public class StaffUI {
 				case 5: this.updateMovieStatus(); break;
 				case 6: this.listTopSale();break;
 				case 7: this.listTopRating(); break;
-				case 8: this.addShowing();break
-				case 9: System.exit(0); break;
+				case 8: this.addShowing();break;
+				case 9: return;
 				default: System.out.println("Invalid, input again");
 
 			}
@@ -137,7 +137,6 @@ public class StaffUI {
 			System.out.println(m.getDirector());
 			if(m.getTitle().equals(movieTitle)==true){
 				m.setMovieStatus(status);found = true;
-				break;
 			}
 		}
 //		while(ite.hasNext()){
@@ -328,7 +327,7 @@ public class StaffUI {
 		while(true){
 			int movieCnt;Movie m;String twod = "";
 			for(movieCnt=1;movieCnt<=movieList.size();movieCnt++){
-				m = movieList.get(movieCnt);
+				m = movieList.get(movieCnt-1);
 				
 				if(m instanceof TwoD)twod = "(2D)";
 				else if(m instanceof ThreeD) twod = "(3D)";
@@ -338,7 +337,7 @@ public class StaffUI {
 			int movieChoice = sc.nextInt();
 			sc.nextLine();
 			if(movieChoice ==  movieCnt) return;
-			else if(movieChoice >movieCnt ||movieChoice <=0)System.out.println("Invalid");
+			else if(movieChoice >movieCnt ||movieChoice <0)System.out.println("Invalid");
 			else{
 				m = movieList.get(movieChoice-1);
 				Date d = chooseDateWithTime();
@@ -363,8 +362,8 @@ public class StaffUI {
 						Cinema cinema;
 						int i;
 						for( i = 1;i<=cinemaList.size();i++){
-							cinema = cinemaList.get(i);
-							System.out.println(""+i+" cinema with code"+cinema.getCinemaCode());
+							cinema = cinemaList.get(i-1);
+							System.out.println(""+i+" cinema with code "+cinema.getCinemaCode());
 							
 						}
 						System.out.println(""+i+" Back");

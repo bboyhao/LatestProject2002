@@ -19,7 +19,7 @@ public class CineplexMgr {
 		cineplexList = new ArrayList<Cineplex>();
 		Cineplex c;
 		try{
-			filein = new FileInputStream("Cineplex.ser");
+			filein = new FileInputStream("cineplexList.ser");
 			obin = new ObjectInputStream(filein);
 			cineplexList = (ArrayList<Cineplex>)obin.readObject();
 			obin.close();filein.close();
@@ -67,10 +67,7 @@ public class CineplexMgr {
 		try{
 			filein = new FileInputStream("Movie.ser");
 			obin = new ObjectInputStream(filein);
-			while(filein.available()>0){
-				m=(Movie)obin.readObject();
-				if(m.getMovieStatus()==status)movieList.add(m);
-			}
+			movieList = (ArrayList<Movie>)obin.readObject();
 			obin.close();filein.close();
 		}
 		catch(FileNotFoundException e1){
@@ -331,22 +328,31 @@ public class CineplexMgr {
 		try{
 			FileInputStream fin= new FileInputStream("cineplexList.ser");
 			ObjectInputStream oin = new ObjectInputStream(fin);
-			FileOutputStream fout = new FileOutputStream("cineplexList.ser");
-			ObjectOutputStream oOut = new ObjectOutputStream(fout);
 			cineplexList = (ArrayList<Cineplex>) oin.readObject();
-			boolean found = false;
+			boolean found = false;oin.close();fin.close();
 			for(Cineplex cplex : cineplexList){
 				for(Cinema cma : cplex.getCinemaList()){
 					if(cma.getCinemaCode().equals(cinema.getCinemaCode())){
 						showingList = cma.getShowingList();
+						if(showingList==null)showingList = new ArrayList<ShowingSchedule>();
 						showingList.add(showSche);
+						for(int i=0;i<showingList.size();i++){
+							showingList.get(i).printScheduleInfo();
+						}
+						System.out.println("haha1");
 						found = true;break;
 					}
 				}
 				if(found)break;
 			}
-			if(found)oOut.writeObject(cineplexList);
-			oOut.close();fout.close();oin.close();fout.close();
+			System.out.println("haha2");
+
+			FileOutputStream fout = new FileOutputStream("cineplexList.ser");
+			ObjectOutputStream oOut = new ObjectOutputStream(fout);
+			oOut.writeObject(cineplexList);
+			System.out.println("haha3");
+
+			oOut.close();fout.close();
 			
 		}
 		catch(FileNotFoundException e1){
@@ -389,9 +395,7 @@ public class CineplexMgr {
 	}
 	public ArrayList<ShowingSchedule> findShowingSchedule(Movie movieChoice) {
 		// TODO Auto-generated method stub
-		ArrayList<ShowingSchedule> showingList = new ArrayList<ShowingSchedule>();
-		Cineplex tmpCineplex=null;
-		
+		ArrayList<ShowingSchedule> showingList = new ArrayList<ShowingSchedule>();		
 		ArrayList<Cineplex> cineplexList=null;
 		ObjectInputStream obin;
 		FileInputStream filein;
@@ -400,7 +404,22 @@ public class CineplexMgr {
 		try{
 			filein= new FileInputStream(fileName);
 			obin=new ObjectInputStream(filein);
-			cineplexList=(ArrayList<Cineplex>) obin.readObject();			
+			cineplexList=(ArrayList<Cineplex>) obin.readObject();
+			for(Cineplex cplex : cineplexList){
+				for(Cinema c : cplex.getCinemaList()){
+					if(c.getShowingList()==null){
+						ArrayList<ShowingSchedule> ss=c.getShowingList();
+						ss=new ArrayList<ShowingSchedule>();
+						break;
+					}
+					
+					for(ShowingSchedule s:c.getShowingList()){
+						if(s.getMovie().getTitle().equals(movieChoice.getTitle())){
+							showingList.add(s);
+						}
+					}
+				}
+			}
 		}
 		catch(FileNotFoundException e1){
 			System.out.println("File does not exist");
@@ -411,18 +430,10 @@ public class CineplexMgr {
 		catch (ClassNotFoundException e3){
 				System.out.println("somehow no such class");
 		}
-		while(cineplexList!=null){
-			tmpCineplex=cineplexList.remove(0);
-			for(int i=0;i<=tmpCineplex.getCinemaList().size();i++){
-				tmpShowingList=tmpCineplex.getCinemaList().get(i).getShowingList();
-				for(int j=0;j<tmpShowingList.size();j++){
-					if(tmpShowingList.get(j).getMovie().getTitle().equals(movieChoice.getTitle())){
-						showingList.add(tmpShowingList.get(j));
-					}
-				}
-			}
-		}
 		
+		for(int i=0;i<showingList.size();i++){
+			showingList.get(i).printScheduleInfo();
+		}
 		
 		return showingList;
 	}

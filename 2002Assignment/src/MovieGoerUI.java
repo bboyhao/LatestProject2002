@@ -182,6 +182,7 @@ public class MovieGoerUI {
          return;
       }
       catch(Exception e) {
+    	 System.out.println("we are now in choose movie error");
          System.out.println("Exception >> " + e.getMessage());
       }
    }
@@ -289,13 +290,15 @@ public class MovieGoerUI {
       }while(true);
    }
    private void bookMovie(){
-      try{
+      
         
          if (cineplexChoice != null)
             this.sList = this.cineplexMgr.findShowingSchedule(movieChoice, cineplexChoice);
          else
             this.sList = this.cineplexMgr.findShowingSchedule(movieChoice);//need new overload in cineplexMgr. Print out all available schedule from all cineplex
          System.out.println("=====List of Show Time for " + movieChoice.getTitle() + "===============");
+ 		 System.out.println("returned showingschedule of movie in bookmovie function");
+
          printSchedule();
          if(chooseSchedule()==false) {
                 return;
@@ -343,10 +346,8 @@ public class MovieGoerUI {
          bookingMgr.addTransaction(movieGoer, t);
          }
          else return;
-      }
-      catch(Exception e){
-         System.out.println("Exception >> " + e.getMessage());
-      }
+      
+      
    }
    
    private void displayPaymentMsg(Ticket t){

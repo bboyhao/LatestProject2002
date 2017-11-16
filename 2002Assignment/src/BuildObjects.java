@@ -21,29 +21,29 @@ public class BuildObjects {
 //		cineplexList.add(cineplex2);
 //		cineplexList.add(cineplex3);
 //		Dolby dolby1 = new Dolby();
-//		dolby1.setCinemaCode("JP001D");
+//		dolby1.setCinemaCode("J1D");
 //		Dolby dolby2 = new Dolby();
-//		dolby2.setCinemaCode("JP002D");
+//		dolby2.setCinemaCode("J2D");
 //
 //		Dolby dolby3 = new Dolby();
-//		dolby3.setCinemaCode("Bugis001D");
+//		dolby3.setCinemaCode("B1D");
 //
 //		Dolby dolby4 = new Dolby();
-//		dolby1.setCinemaCode("Bugis002D");
+//		dolby4.setCinemaCode("B2D");
 //
 //		Dolby dolby5 = new Dolby();
-//		dolby1.setCinemaCode("Serangoon001D");
+//		dolby5.setCinemaCode("S1D");
 //
 //		Dolby dolby6 = new Dolby();		
-//		dolby1.setCinemaCode("Sergangoon002D");
+//		dolby6.setCinemaCode("S2D");
 //
 //
 //		Platinum platinum1 = new Platinum();
-//		platinum1.setCinemaCode("JP003P");
+//		platinum1.setCinemaCode("J3P");
 //		Platinum platinum2 = new Platinum();
-//		platinum2.setCinemaCode("Bugis003P");
+//		platinum2.setCinemaCode("B3P");
 //		Platinum platinum3 = new Platinum();
-//		platinum3.setCinemaCode("Serangoon003P");
+//		platinum3.setCinemaCode("S3P");
 //
 //		cineplex1.addCinema(dolby1);
 //		cineplex1.addCinema(dolby2);
@@ -164,5 +164,9 @@ public class BuildObjects {
 //		}
 		
     }
+
+
+
+	
 
 
