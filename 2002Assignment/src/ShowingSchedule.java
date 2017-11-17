@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
-public class ShowingSchedule {
+public class ShowingSchedule implements Serializable{
 	private SeatPlan seatPlan;
 	private Movie movie;
 	private Cineplex cineplex;
@@ -39,7 +40,14 @@ public class ShowingSchedule {
 			
 	}
 	public boolean validateSeatAvailability(int row, int col){
+		
 		char [][] seat= seatPlan.getSeatPlan();
+//		for(int i = 0;i<seat.length;i++){
+//			for(int j = 0;j<seat[0].length;j++){
+//				System.out.print(seat[i][j]);
+//			}
+//			System.out.println("");
+//		}
 		if(row<seat.length && col<seat[0].length && seat[row][col]=='O')return true;
 		else return false;
 	}

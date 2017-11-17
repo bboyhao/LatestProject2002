@@ -11,11 +11,10 @@ public class Ticket implements Serializable{
                 protected int col;
                 protected int row;
                 
-                public Ticket(ShowingSchedule showingschedule, MovieGoer movieGoer,int col, int row){
+                public Ticket(ShowingSchedule showingSchedule, MovieGoer movieGoer,int col, int row){
+                				this.showingSchedule = showingSchedule;
                                 this.transactionID = setTransactionID();
-                                this.showingSchedule = showingSchedule;
                                 this.movieGoer = movieGoer;
-                                this.discount = discount;
                                 this.col = col;
                                 this.row = row;
                 }
@@ -23,7 +22,7 @@ public class Ticket implements Serializable{
                 public String setTransactionID(){
                                 String cinemaCode = showingSchedule.getCinema().getCinemaCode();
                                 Date date = showingSchedule.getDate();
-                SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddHHmm");
+                                SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddHHmm");
                                 return cinemaCode+ft.format(date);
                                 
                 }
@@ -44,6 +43,10 @@ public class Ticket implements Serializable{
                                 discount = newDiscount;
                 }
                 
+                public double getDiscount(){
+                	return Ticket.discount;
+                }
+                
                 public void setPrice(double price) {
                                 this.price = price;
                 }
@@ -56,6 +59,7 @@ public class Ticket implements Serializable{
                                 System.out.println("Transaction ID: " + transactionID);
                                 this.showingSchedule.printScheduleInfo();
                                 System.out.println("Buyer name: " + this.movieGoer.getName());
-                                System.out.println("Price" + this.price);
+                                System.out.println("Price: " + this.price);
+                                System.out.println("Seat: row " + this.row +" col " + this.col);
                 }
 }

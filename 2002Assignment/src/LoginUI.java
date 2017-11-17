@@ -1,49 +1,17 @@
 import java.util.*;
 import java.io.*;
 public class LoginUI {
-//	public static void main(String[] args){
-////		ArrayList<String> cast =null;
-////		ArrayList<Review> reviews =null;
-////		Movie m = new TwoD("a title",MovieStatus.Now_Showing,"this is synopsis","this is director",cast,reviews);
-////		System.out.println(m.getDirector());
-////		ArrayList<Movie> mList = new ArrayList<Movie>();
-////		mList.add(m);
-////		Movie m2 = mList.get(0);
-////		System.out.println("haha");
-////		Movie m1=new TwoD();
-////		m1.setTitle("this is a title");
-////		System.out.println(m1.getTitle());
-////
-////		System.out.println(m2.getDirector());
-//		ArrayList<Movie> movieList=new ArrayList<Movie>();
-//		try{
-//			FileInputStream filein = new FileInputStream("Movie.ser");
-//			ObjectInputStream obin = new ObjectInputStream(filein);
-//			movieList = (ArrayList<Movie>)obin.readObject();
-//			for(int i=0;i<movieList.size();i++){
-//				movieList.get(i).printMovieInfo();
-//			}
-//			obin.close();filein.close();
-//		}
-//		catch(FileNotFoundException e1){
-//			System.out.println("File does not exist");
-//		}
-//		catch(IOException e){
-//			System.out.println("some io error occured");
-//		}
-//		catch (ClassNotFoundException e3){
-//				System.out.println("somehow no such class");
-//		}
-//	}
-	
+	 static LoginMgr lMgr = new LoginMgr();
+	 static StaffUI sUI = new StaffUI();
+	 static MovieGoerUI mUI = new MovieGoerUI();
+
 public static void main(String[] args){
 	 
 	 System.out.println("Welcome!");
 	 Scanner sc = new Scanner(System.in);
 
 	 String username,passwd;
-	 LoginMgr lMgr = new LoginMgr();StaffUI sUI = new StaffUI();
-	 MovieGoerUI mUI = new MovieGoerUI();
+
 	 while(true){
 		 System.out.println("enter 1 if you are user and 0 if you are admin");
 		 int isUser = sc.nextInt();sc.nextLine();
@@ -53,10 +21,12 @@ public static void main(String[] args){
 			 System.out.println("Please enter you password");
 			 passwd = sc.nextLine();
 			 MovieGoer m= null;
-			 if((m=lMgr.validateMovieGoer(username, passwd)) !=null  )mUI.displayMenu(m);
+			 if((m=lMgr.validateMovieGoer(username, passwd)) !=null  )
+				 m=mUI.displayMenu(m);
 			 else {
 				 System.out.println("Invalid user name or invalid password");
 			 }
+			 lMgr.writeOutMovieGoer(m);
 		 }
 		 else if(isUser==0){
 			 System.out.println("Please enter you username");
@@ -76,6 +46,7 @@ public static void main(String[] args){
 			 System.out.println("Invalid input, please input again");
 		 }
 	 }
+	 
  }
 //	public static void main(String ars[]){
 //		try{

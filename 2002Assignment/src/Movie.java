@@ -6,8 +6,8 @@ public abstract class Movie implements Serializable{
 	protected MovieStatus movieStatus = MovieStatus.Coming_Soon;
 	protected String synopsis;
 	protected String director;
-	protected ArrayList<String> casts;
-	protected ArrayList<Review> reviews;
+	protected ArrayList<String> casts = new ArrayList<String>();
+	protected ArrayList<Review> reviews = new ArrayList<Review>();
 	protected double sale = 0;
 	protected boolean bbStatus = false;
 	protected static double bbRate = 2;
@@ -18,7 +18,6 @@ public abstract class Movie implements Serializable{
 	}
 	public void setTitle(String title){
 		this.title = title;
-		System.out.println(this.title);
 	}
 	
 	public MovieStatus getMovieStatus(){
@@ -69,10 +68,13 @@ public abstract class Movie implements Serializable{
 		return this.reviews;
 	}
 	public void updateReviews(Review review){
+		if (this.reviews== null) this.reviews = new ArrayList<Review>();
 		this.reviews.add(review);
 	}
 	public double getOverallRating(){
 		double overallRating=0;
+		if (this.reviews == null||reviews.size()==0) 
+			return 0;
 		
 		for (int i = 0; i < this.reviews.size(); i++)
 			overallRating += reviews.get(i).getRating();//!!!!

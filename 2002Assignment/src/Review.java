@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Review {
+public class Review implements Serializable{
 	private MovieGoer movieGoer;
 	private String review;
 	private int rating;
@@ -13,12 +14,10 @@ public class Review {
 	}
 	
 	public void printReview(){
-		System.out.println("Review: "+review);
-		System.out.println("Rating: "+rating);
+		System.out.print(this.movieGoer.getName() + "\n" + " (" + rating + ")" + "\n" + review);
 	}
 
 	public double getRating() {
-		// TODO Auto-generated method stub
 		return rating;
 	}
 }

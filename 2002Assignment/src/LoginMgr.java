@@ -9,13 +9,15 @@ import java.util.Iterator;
 
 
 public class LoginMgr {
+	ArrayList<MovieGoer> movieGoerList = new ArrayList<MovieGoer>();
+	int mIndex;
 	public MovieGoer validateMovieGoer(String userId,String password){
-		ArrayList<MovieGoer> movieGoerList= new ArrayList<MovieGoer>();
+//		ArrayList<MovieGoer> movieGoerList= new ArrayList<MovieGoer>();
 		MovieGoer m;
 		try{
 			FileInputStream filein = new FileInputStream("MovieGoer.ser");
 			ObjectInputStream oin=new ObjectInputStream(filein);
-			movieGoerList = (ArrayList<MovieGoer>)oin.readObject();
+			this.movieGoerList = (ArrayList<MovieGoer>)oin.readObject();
 			oin.close();filein.close();
 			
 		}
@@ -24,14 +26,18 @@ public class LoginMgr {
 		}
 		catch(IOException e){
 			System.out.println("some io error occured");
+			e.printStackTrace();
 		}
 		catch (ClassNotFoundException e3){
 				System.out.println("no such class");
 		}
-		Iterator<MovieGoer> i = movieGoerList.iterator();
+		Iterator<MovieGoer> i = this.movieGoerList.iterator();
 		while(i.hasNext()){
 			m=i.next();
-			if(m.getUserName().equals(userId)&&m.getPassword().equals(password))return m;
+			if(m.getUserName().equals(userId)&&m.getPassword().equals(password)){
+				this.mIndex = this.movieGoerList.indexOf(m);
+				return m;
+			}
 		}
 		return null;
 		
@@ -64,4 +70,21 @@ public class LoginMgr {
 		return null;
 		
 	}
+	
+	public void writeOutMovieGoer(MovieGoer m){
+		this.movieGoerList.set(mIndex, m);
+		try{
+			FileOutputStream fileName= new FileOutputStream("MovieGoer.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileName);
+			out.writeObject(this.movieGoerList);
+			out.close();
+			fileName.close();
+			System.out.println("debuginginging");
+		}catch(IOException i){
+			i.printStackTrace();
+			
+			
+		}
+	}
+	
 }

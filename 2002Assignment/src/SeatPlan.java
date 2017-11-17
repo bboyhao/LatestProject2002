@@ -84,6 +84,7 @@ public class SeatPlan implements Serializable{
 			System.out.print('\n');
 			}
 	}
+	
 	public void updateSeatPlan(int row,int col){
 		seatPlan[row][col]='X';
 			

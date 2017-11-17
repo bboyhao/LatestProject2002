@@ -20,7 +20,7 @@ public class MovieGoerUI {
   
    public MovieGoerUI(){};
    
-   public void displayMenu(MovieGoer mGoer){
+   public MovieGoer displayMenu(MovieGoer mGoer){
                    int userChoice;movieGoer = mGoer;
                    
       do {
@@ -37,6 +37,7 @@ public class MovieGoerUI {
          System.out.println("8. View transaction history");
          System.out.println("9. Log out.");
          System.out.println("Please enter your choice (1-9):");
+         System.out.println();
          Scanner sc = new Scanner(System.in);
          userChoice = sc.nextInt();
         
@@ -50,6 +51,7 @@ public class MovieGoerUI {
             case 7: createReview(); break;
             case 8: printTransaction(movieGoer); break;
             case 9:
+            	
                System.out.println("Bye bye " + movieGoer.getName() + ", see you soon!");
                break;
             default:
@@ -57,11 +59,13 @@ public class MovieGoerUI {
                break;
          }
       } while (userChoice != 9);
+      
+      return this.movieGoer;
    }
   
    public void findMovie(){
       Scanner sc = new Scanner(System.in);
-      System.out.println("======================");
+		System.out.println("=========================================================");
       System.out.println("Enter the movie name:");
       String movieTitle = sc.next();
      
@@ -70,6 +74,7 @@ public class MovieGoerUI {
       chooseMovie();
       bookMovie1();
    }
+   
    public void listNowShowing(){
       Scanner sc = new Scanner(System.in);
       this.mList = this.movieMgr.findNowShowing();
@@ -95,9 +100,10 @@ public class MovieGoerUI {
          }
       }while(true);
    }
+   
    public void listComingSoon(){
       Scanner sc = new Scanner(System.in);
-      System.out.println("======================================");
+		System.out.println("=========================================================");
       this.mList = this.movieMgr.findComingSoon();
       printMovie();
       System.out.println("Press any key to go back to Main Menu.");
@@ -112,7 +118,6 @@ public class MovieGoerUI {
          printCineplex();
          System.out.println("1. Choose cineplex.");
          System.out.println("2. Go back to Main Menu.");
-         System.out.println("Please enter your choice (1-2):");
          int userChoice = sc.nextInt();
          switch(userChoice){
             case(1):
@@ -130,11 +135,13 @@ public class MovieGoerUI {
          }
       } while(true);
    }
+   
    public void createReview(){
       Scanner sc = new Scanner(System.in);
       System.out.println("==============Movie Review==============");
       System.out.println("Enter the movie title:");
-      String mTitle = sc.next();
+      String mTitle = sc.nextLine();
+      System.out.println(mTitle);
       this.mList = this.movieMgr.findMovie(mTitle);
       printMovie();
       chooseMovie();
@@ -150,19 +157,24 @@ public class MovieGoerUI {
       }
       
       this.movieMgr.createReview(this.movieGoer, this.movieChoice,review,rating);
+      
+      this.movieMgr.writeOutMovie();
    }
+   
    public void listTopSale(){
       this.mList = this.movieMgr.findTopSale();
       printMovie();
       chooseMovie();
       bookMovie1();
    }
+   
    private void listTopRating(){
       this.mList = this.movieMgr.findTopRating();
       printMovie();
       chooseMovie();
       bookMovie1();
    }
+   
    private void printMovie(){
 	   int index;
       for (int i = 0 ; i < this.mList.size() ; i++) {
@@ -172,20 +184,24 @@ public class MovieGoerUI {
          m.printMovieInfo();
       }
    }
+   
    private void chooseMovie(){
       Scanner sc = new Scanner(System.in);
       try{
-         int index;
-         System.out.println("Enter the index of movie: ");
-         index = sc.nextInt();
-         this.movieChoice = this.mList.get(index-1);
-         return;
+        int index;
+ 		System.out.println("=========================================================");
+        System.out.println("Enter the index of movie: ");
+        index = sc.nextInt();
+        this.movieChoice = this.mList.get(index-1); System.out.println(movieChoice.getTitle());
+        return;
       }
       catch(Exception e) {
+    	 e.printStackTrace();
     	 System.out.println("we are now in choose movie error");
          System.out.println("Exception >> " + e.getMessage());
       }
    }
+   
    private void printCineplex(){
 	   int index;
       for (int i = 0 ; i < this.cList.size() ; i++) {
@@ -195,19 +211,22 @@ public class MovieGoerUI {
          c.printCineplexInfo();
       }
    }
+   
    private void chooseCineplex(){
       Scanner sc = new Scanner(System.in);
       try{
-         int index;
-         System.out.println("Enter the index of cineplex: ");
-         index = sc.nextInt();
-         this.cineplexChoice = cList.get(index-1);
-         return;
+        int index;
+ 		System.out.println("=========================================================");
+        System.out.println("Enter the index of cineplex: ");
+        index = sc.nextInt();
+        this.cineplexChoice = cList.get(index-1);
+        return;
       }
       catch(Exception e){
          System.out.println("Exception >> " + e.getMessage());
       }
    }
+   
    private void printSchedule(){
 	  int index;
       for (int i = 0 ; i < this.sList.size() ; i++) {
@@ -217,12 +236,15 @@ public class MovieGoerUI {
          s.printScheduleInfo();
       }
    }
+   
    private boolean chooseSchedule(){
                    Scanner sc = new Scanner(System.in);
       try{
          int index;
-         System.out.println("Enter the index of show time schedule, or enter 0 to return to main menu: ");
+ 		System.out.println("=========================================================");
+         System.out.println("1. Enter the index of show time schedule, or enter 0 to return to main menu: ");
          index = sc.nextInt();
+
          if (index != 0) {
                 this.scheduleChoice = sList.get(index-1);
                 return true;
@@ -240,10 +262,10 @@ public class MovieGoerUI {
       boolean success = true;
       do{
          if (success == false) {
-            System.out.println("Seat taken :(");
+            System.out.println("Seat not available :(");
             System.out.println("1. Rechoose seat.");
             System.out.println("2. Back to previous Section.");
-            System.out.println("Please enter your choice (1-2): ");
+            userChoice = sc.nextInt();
          }
          switch(userChoice){
             case 1:
@@ -274,7 +296,6 @@ public class MovieGoerUI {
       do{
          System.out.println("1. Book this movie.");
          System.out.println("2. Go back to Main Menu.");
-         System.out.println("Please enter your choice (1-2):");
          int userChoice = sc.nextInt();
          switch(userChoice){
             case 1:
@@ -289,13 +310,14 @@ public class MovieGoerUI {
          }
       }while(true);
    }
+   
    private void bookMovie(){
       
         
          if (cineplexChoice != null)
             this.sList = this.cineplexMgr.findShowingSchedule(movieChoice, cineplexChoice);
          else
-            this.sList = this.cineplexMgr.findShowingSchedule(movieChoice);//need new overload in cineplexMgr. Print out all available schedule from all cineplex
+            this.sList = this.cineplexMgr.findShowingSchedule(movieChoice);
          System.out.println("=====List of Show Time for " + movieChoice.getTitle() + "===============");
  		 System.out.println("returned showingschedule of movie in bookmovie function");
 
@@ -304,10 +326,15 @@ public class MovieGoerUI {
                 return;
                       
          }
+         
          this.scheduleChoice.getSeatPlan().printSeatPlan();
+         
          if (chooseSeat()==false) {
                 return;
          }
+         
+         System.out.println("======================Seat Chosen=========================");
+         this.scheduleChoice.getSeatPlan().printSeatPlan();
          
          Scanner sc = new Scanner(System.in);
          System.out.println("=====Choice Ticket Type======");
@@ -315,39 +342,27 @@ public class MovieGoerUI {
          System.out.println("1. Normal Ticket");
          System.out.println("2. Student Ticket");
          System.out.println("3. Senior Ticket");
-         System.out.println("4. return to main menu");
+         System.out.println("4. Go back to Main Menu");
          
          int ticketChoice;
          do {
                 System.out.print("Please enter your choice (1-4):");
                 ticketChoice = sc.nextInt();
-         }while(ticketChoice != (1|2|3|4));
-         
-         
+         }while((ticketChoice != 1)&(ticketChoice != 2)&(ticketChoice != 3)&(ticketChoice != 4));
+
          Ticket t = bookingMgr.generateTicket(ticketChoice, scheduleChoice, movieGoer, rowChoice, colChoice);
          if (t !=  null) {
-         double price = bookingMgr.calculatePrice(scheduleChoice, t);
-         t.setPrice(price);
-         displayPaymentMsg(t);
-         MovieMgr mMgr = new MovieMgr();
-         this.mList = mMgr.readInMovie("Movie.ser");
-         boolean is2d = t.getShowingSchedule().getMovie() instanceof TwoD;
-         for(int i = 0;i<mList.size();i++){
-        	 Movie m = mList.get(i);
-        	 if(m.getTitle().equals(t.getShowingSchedule().getMovie().getTitle())){
-        		 if(m instanceof TwoD&&is2d==true){
-        			 m.updateSale(price);
-        		 }
-        		 else if(m instanceof ThreeD&&is2d==false){
-        			 m.updateSale(price);
-        		 }
-        	 }
-         }
-         bookingMgr.addTransaction(movieGoer, t);
+        	 double price = bookingMgr.calculatePrice(scheduleChoice, t);
+        	 t.setPrice(price);
+        	 displayPaymentMsg(t);
+         
+        	 this.movieChoice.updateSale(price);
+        
+        	 bookingMgr.addTransaction(movieGoer, t);
+        	 movieMgr.writeOutMovie();
+        	 cineplexMgr.writeOutCineplex();
          }
          else return;
-      
-      
    }
    
    private void displayPaymentMsg(Ticket t){
@@ -358,7 +373,7 @@ public class MovieGoerUI {
                    }
    
    private void printTransaction(MovieGoer movieGoer) {
-                   ArrayList<Ticket> transaction = bookingMgr.readInTransaction(movieGoer);
+                   ArrayList<Ticket> transaction = this.movieGoer.getTransactionHistory();
                    
                    System.out.println("========Transaction History===========");
                    for (Ticket t: transaction) {
@@ -373,10 +388,5 @@ public class MovieGoerUI {
                 
                    return;
    }
-//   public static void main(String[] args) {
-//     MovieGoerUI mUI = new MovieGoerUI();
-//      if (movieGoer != null)
-//         mUI.displayMenu(m);
-//   }
 }
  

@@ -1,63 +1,79 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class StaffUI {
+	   MovieMgr movieMgr = new MovieMgr();
+	   CineplexMgr cineplexMgr = new CineplexMgr();
+	
 	public void DisplayMenu(){
 		Scanner sc = new Scanner(System.in);
 		while(true){
-			System.out.println("1.Change Holiday setting");
-			System.out.println("2.Change ticket price setting");
-			System.out.println("3.Enter a forthcoming movie");
-			System.out.println("4.Update detail of a movie");
-			System.out.println("5.Update status of a movie");
-			System.out.println("6.List the top 5 movies by ticket sales");
-			System.out.println("7.List the top 5 movies by overall ratings");
-			System.out.println("8.Enter another showing");
-			System.out.println("9.Exit");
+			System.out.println("1.Add holiday");
+			System.out.println("2.Remove holiday");
+			System.out.println("3.Change ticket price setting");
+			System.out.println("4.Enter a forthcoming movie (Default Status: Coming_Soon)");
+			System.out.println("5.Update details of a movie");
+			System.out.println("6.Update showing status of a movie");
+			System.out.println("7.List the top 5 movies by ticket sales");
+			System.out.println("8.List the top 5 movies by overall ratings");
+			System.out.println("9.Enter another showing schedule");
+			System.out.println("10.Exit");
 			
 			int instruction  = sc.nextInt();
 			sc.nextLine();
 			switch(instruction){
 				case 1: this.chooseDateWithNoTime(); break;
-				case 2: this.changeBasePrice(); break;
-				case 3: this.addNewMovie(); break;
-				case 4: this.updateMovieDetail(); break;
-				case 5: this.updateMovieStatus(); break;
-				case 6: this.listTopSale();break;
-				case 7: this.listTopRating(); break;
-				case 8: this.addShowing();break;
-				case 9: return;
+				case 2: this.removeDate(); break;
+				case 3: this.changeBasePrice(); break;
+				case 4: this.addNewMovie(); break;
+				case 5: this.updateMovieDetail(); break;
+				case 6: this.updateMovieStatus(); break;
+				case 7: this.listTopSale();break;
+				case 8: this.listTopRating(); break;
+				case 9: this.addShowing();break;
+				case 10: return;
 				default: System.out.println("Invalid, input again");
 
 			}
 		}
 	}
+	
 	public void listTopSale(){
 		ArrayList<Movie> mList= new ArrayList<Movie>();
-		Movie m; MovieMgr movieMgr = new MovieMgr();
+		Movie m; 
 		mList = movieMgr.findTopSale();
 		Iterator<Movie> ite = mList.iterator();
+		System.out.println("=========================================================");
 		System.out.println("These are the top 5 Movies with highest sale");
 		int cnt = 1;
 		while(ite.hasNext()){
 			m=ite.next();
 			System.out.println(" "+cnt + ". "+m.getTitle()+" with sales "+m.getSale() );
+			cnt++;
 		}
 	}
+	
 	public void listTopRating(){
 		ArrayList<Movie> mList= new ArrayList<Movie>();
-		Movie m;MovieMgr movieMgr = new MovieMgr();
+		Movie m;
 		mList = movieMgr.findTopRating();
 		Iterator<Movie> ite = mList.iterator();
+		System.out.println("=========================================================");
 		System.out.println("These are the top 5 Movies with highest Rating");
 		int cnt = 1;
 		while(ite.hasNext()){
 			m=ite.next();
 			System.out.println(" "+cnt + ". "+m.getTitle()+" with Ratings "+m.getSale() );
+			cnt++;
 		}
 		
 	}
 	public void addNewMovie(){
 		Scanner sc = new Scanner(System.in);
+		System.out.println("=========================================================");
 		System.out.println("Please enter the title of the movie");
 		String movieTitle=sc.nextLine();
 		System.out.println("Please enter the synopsis of the movie");
@@ -71,9 +87,9 @@ public class StaffUI {
 			casts.add(tmpCast);
 			tmpCast=sc.nextLine();
 		}
-		CineplexMgr mgr = new CineplexMgr();
 
 		char is2D,is3D;
+		
 		while(true){
 			System.out.println("Is 2D available? [Y/N]");
 			is2D = sc.nextLine().charAt(0);
@@ -84,7 +100,7 @@ public class StaffUI {
 				m.setSynopsis(synopsis);
 				m.setMovieStatus(MovieStatus.Coming_Soon);
 				m.setCasts(casts);
-				mgr.addNewMovie(m);
+				cineplexMgr.addNewMovie(m);
 				break;
 			}
 			else if(is2D=='N'||is2D=='n')break;
@@ -100,7 +116,7 @@ public class StaffUI {
 				m.setDirector(director);
 				m.setSynopsis(synopsis);
 				m.setMovieStatus(MovieStatus.Coming_Soon);
-				mgr.addNewMovie(m);
+				cineplexMgr.addNewMovie(m);
 				break;
 			}
 			else if(is3D=='N'||is3D=='n')break;
@@ -110,6 +126,7 @@ public class StaffUI {
 	
 	public void updateMovieStatus(){
 		Scanner sc = new Scanner(System.in);
+		System.out.println("=========================================================");
 		System.out.println("Please enter the title of the movie");
 		String movieTitle = sc.nextLine();
 		System.out.println("Please enter the new status of the movie");
@@ -127,44 +144,32 @@ public class StaffUI {
 		}
 		
 		ArrayList<Movie> mList= new ArrayList<Movie>();
-		CineplexMgr mgr = new CineplexMgr();
-//		Movie m;
-		mList= mgr.findAllMovie();
+
+		mList= cineplexMgr.findAllMovie();
 		Iterator<Movie> ite = mList.iterator();
-		System.out.println("see "+ mList.size());
 		boolean found = false;
 		for(Movie m : mList){
-			System.out.println(m.getDirector());
 			if(m.getTitle().equals(movieTitle)==true){
 				m.setMovieStatus(status);found = true;
 			}
 		}
-//		while(ite.hasNext()){
-//			m = ite.next();
-//			System.out.println(m.getDirector());
-//			if(m.getTitle().equals(movieTitle)==true){
-//				m.setMovieStatus(status);found  = true;
-//				break;
-//			}
-//		}
-		if(found)mgr.updateMovie(mList);
+
+		if(found)cineplexMgr.updateMovie(mList);
 		else System.out.println("not found");
 		
 	}
 	
 	public void updateMovieDetail(){
 		Scanner sc = new Scanner(System.in);
+		System.out.println("=========================================================");
 		System.out.println("Please enter the title of the movie you want to update");
 		String title = sc.nextLine();
 		int instruction;
 		Movie movie;
 		ArrayList<Movie> mList= new ArrayList<Movie>();
 		ArrayList<Movie> newMList = new ArrayList<Movie>();
-		//ArrayList<TwoD> twoList = new ArrayList<TwoD>();
-		//ArrayList<ThreeD>
-		
-		CineplexMgr mgr = new CineplexMgr();
-		mList= mgr.findAllMovie();
+
+		mList= cineplexMgr.findAllMovie();
 		Iterator<Movie> ite = mList.iterator();
 		boolean found = false;
 		while(ite.hasNext()){
@@ -176,6 +181,7 @@ public class StaffUI {
 		}
 		if(found){
 			while(true){
+				System.out.println("=========================================================");
 				System.out.println("Please choose what fields of the movie you want to update");
 				System.out.println("1.Movie title");
 				System.out.println("2.Movie synopsis");
@@ -260,7 +266,7 @@ public class StaffUI {
 					for (Movie m: mList){
 						m.printMovieInfo();
 					}
-					mgr.updateMovie(mList);
+					cineplexMgr.updateMovie(mList);
 					return;
 				}
 				default: System.out.println("Invalid instruction");
@@ -269,7 +275,9 @@ public class StaffUI {
 		}
 		else System.out.println("Not found");
 	}
+	
 	public void changeBasePrice(){
+		System.out.println("=========================================================");
 		System.out.println("The current base price is " + Movie.baseRate);
 		System.out.println("Please enter a new base price");
 		Scanner sc = new Scanner(System.in);
@@ -277,24 +285,90 @@ public class StaffUI {
 	}
 	public Date chooseDateWithNoTime(){
 		Scanner sc = new Scanner(System.in);
-		
+		System.out.println("=========================================================");
+		System.out.println("please enter the year in number");
+		int year  = sc.nextInt();sc.nextLine();
 		System.out.println("please enter the month in number");
 		int month  = sc.nextInt();sc.nextLine();
 		System.out.println("Please enter the day in number");
 		int day = sc.nextInt();sc.nextLine();
-		Calendar myCal = Calendar.getInstance();
-		myCal.set(Calendar.MONTH, month);
-		myCal.set(Calendar.DAY_OF_MONTH, day);
-		Date theDate = myCal.getTime();
+		Date now = new Date();
+		Date theDate = new Date(year-1900,month-1,day);
+		
+		try{
+			FileInputStream fin = new FileInputStream("holiday.ser");
+			ObjectInputStream oin = new ObjectInputStream(fin);
+			ArrayList<Date> holidayList;
+			holidayList = (ArrayList<Date>) oin.readObject();
+			oin.close();fin.close();
+			if(holidayList == null)holidayList = new ArrayList<Date>();
+			holidayList.add(theDate);
+			System.out.println("Current Holiday List:");
+			for(Date dick : holidayList){
+				System.out.println(dick.toString());
+			}
+			FileOutputStream fout = new FileOutputStream("holiday.ser");
+			ObjectOutputStream oOut = new ObjectOutputStream(fout);
+			oOut.writeObject(holidayList);
+		}
+		catch ( Exception e ) {
+            System.out.println( "Exception >> " + e.getMessage() );
+            e.printStackTrace();
+}
 		return theDate;
-		//TODO to be continued
 	}
+	@SuppressWarnings("deprecation")
+	public void removeDate(){
+		System.out.println("=========================================================");
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Please enter the year in number");
+		int year  = sc.nextInt();sc.nextLine();
+		System.out.println("Please enter the month in number");
+		int month  = sc.nextInt();sc.nextLine();
+		System.out.println("Please enter the day in number");
+		int day = sc.nextInt();sc.nextLine();
+		Date now = new Date();
+		Date d = new Date(year-1900,month-1,day);
+		try{
+			FileInputStream fin = new FileInputStream("holiday.ser");
+			ObjectInputStream oin = new ObjectInputStream(fin);
+			ArrayList<Date> holidayList;
+			holidayList = (ArrayList<Date>) oin.readObject();
+			
+			System.out.println("Current Holiday List:");
+			for(Date dick : holidayList){
+				System.out.println(dick.toString());
+			}
+			
+			System.out.println();
+			oin.close();fin.close();
+			if(holidayList == null)holidayList = new ArrayList<Date>();
+			for(int i = 0;i<holidayList.size();i++){
+				Date d1 = holidayList.get(i);
+				if(d.getYear()==d1.getYear()&&d.getMonth()==d1.getMonth()&&d.getDate()==d1.getDate())holidayList.remove(i);
+			}
+			System.out.println("Updated Holiday List:");
+			for(Date dick : holidayList){
+				System.out.println(dick.toString());
+			}
+			FileOutputStream fout = new FileOutputStream("holiday.ser");
+			ObjectOutputStream oOut = new ObjectOutputStream(fout);
+			oOut.writeObject(holidayList);
+		}
+		catch ( Exception e ) {
+            System.out.println( "Exception >> " + e.getMessage() );
+            e.printStackTrace();
+}
+	}
+	
+	@SuppressWarnings("deprecation")
 	public Date chooseDateWithTime(){
 		Scanner sc = new Scanner(System.in);
 		Date d;
-		System.out.println("please enter the year in number");
+		System.out.println("=========================================================");
+		System.out.println("Please enter the year in number");
 		int year  = sc.nextInt();sc.nextLine();
-		System.out.println("please enter the month in number");
+		System.out.println("Please enter the month in number");
 		int month  = sc.nextInt();sc.nextLine();
 		System.out.println("Please enter the day in number");
 		int day = sc.nextInt();sc.nextLine();
@@ -302,42 +376,40 @@ public class StaffUI {
 		int hour = sc.nextInt();sc.nextLine();
 		System.out.println("Please enter the minute in number");
 		int minute = sc.nextInt();sc.nextLine();
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.YEAR,year);
-		c.set(Calendar.MONTH,month);
-		c.set(Calendar.DAY_OF_MONTH,day);
-		c.set(Calendar.HOUR_OF_DAY,hour);
-		c.set(Calendar.HOUR, hour);
-		d = c.getTime();
+		d = new Date(year-1900,month-1,day,hour,minute);
 		return d;
-		//TODO to be continued;
+
 	}
 	public void addShowing(){
 		Scanner sc = new Scanner(System.in);
-		CineplexMgr cMgr  = new CineplexMgr(); 
 		ArrayList<Cineplex> cineplexList = new ArrayList<Cineplex>();
-		cineplexList = cMgr.findAllCineplex();
+		cineplexList = cineplexMgr.findAllCineplex();
 		Cineplex c;
 		int ins;
 		int numberOfCineplex = cineplexList.size();
 		ArrayList<Movie> movieList = new ArrayList<Movie>();
-		movieList = cMgr.findAllMovie(MovieStatus.Now_Showing);
-		
+		movieList = cineplexMgr.findAllMovie();
 		
 		while(true){
-			int movieCnt;Movie m;String twod = "";
+			System.out.println("=========================================================");
+			int movieCnt;
+			Movie m;
+			String twod = "";
 			for(movieCnt=1;movieCnt<=movieList.size();movieCnt++){
 				m = movieList.get(movieCnt-1);
 				
-				if(m instanceof TwoD)twod = "(2D)";
-				else if(m instanceof ThreeD) twod = "(3D)";
+				if(m instanceof TwoD)
+					twod = "(2D)";
+				else if(m instanceof ThreeD) 
+					twod = "(3D)";
 				System.out.println(""+movieCnt+" Movie: "+m.getTitle()+twod);
 			}
 			System.out.println(""+movieCnt+" Back");
 			int movieChoice = sc.nextInt();
 			sc.nextLine();
 			if(movieChoice ==  movieCnt) return;
-			else if(movieChoice >movieCnt ||movieChoice <0)System.out.println("Invalid");
+			else if(movieChoice >movieCnt ||movieChoice <0)
+				System.out.println("Invalid");
 			else{
 				m = movieList.get(movieChoice-1);
 				Date d = chooseDateWithTime();
@@ -354,7 +426,8 @@ public class StaffUI {
 					System.out.println(""+cnt+" Back to previous");
 					ins = sc.nextInt();sc.nextLine();
 					if(ins == cnt) break;
-					else if(ins > cnt||ins <1)System.out.println("Invalid");			
+					else if(ins > cnt||ins <1)
+						System.out.println("Invalid");			
 					else {
 						c = cineplexList.get(ins-1);
 						ArrayList<Cinema> cinemaList = new ArrayList<Cinema>();
@@ -373,7 +446,7 @@ public class StaffUI {
 						else {
 							cinema = cinemaList.get(instruction-1);
 							ShowingSchedule showing  = new ShowingSchedule(cinema,c,m,cinema.getSeatPlan(),d);
-							cMgr.addShowingSchedule(showing, cinema);
+							cineplexMgr.addShowingSchedule(showing, cinema);
 							
 						}
 							
@@ -383,25 +456,6 @@ public class StaffUI {
 				
 			}
 		}
-		
-		
-		/*hello
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
 	}
 }
 

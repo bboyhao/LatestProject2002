@@ -41,6 +41,10 @@ public class MovieGoer implements Serializable {
 		
 	}
 	
+	public void setTransaction(ArrayList<Ticket> tList){
+		this.transactionHistory = tList;
+	}
+	
 	public void setName(String name){
 		this.name=name;
 	}

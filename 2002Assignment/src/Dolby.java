@@ -20,7 +20,7 @@ public class Dolby implements Cinema,Serializable{
 	public ArrayList<ShowingSchedule> getShowingList(){
 		return showList;
 	}
-	public void setShowingList(ArrayList<ShowingSchedule> showlist){
+	public void setShowingList(ArrayList<ShowingSchedule> showList){
 		this.showList=showList;
 	}
 	

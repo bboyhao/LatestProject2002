@@ -12,6 +12,61 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class BuildObjects {
+	public static void main(String[] args){
+		MovieGoer m = new MovieGoer("test","123456","Tony");
+		ArrayList<MovieGoer> mList = new ArrayList<MovieGoer>();
+		mList.add(m);
+		try{
+			FileOutputStream fout = new FileOutputStream("MovieGoer.ser");
+			ObjectOutputStream oOut = new ObjectOutputStream(fout);
+			oOut.writeObject(mList);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+//	@SuppressWarnings("deprecation")
+//	
+//	public static void main(String[] args){
+//		ArrayList<Date> publicHoliday=new ArrayList<Date>();
+//		Date d1=new Date(2018-1900,1-1,1);
+//		Date d2=new Date(2018-1900,2-1,16);
+//		Date d3=new Date(2018-1900,2-1,17);
+//		Date d4=new Date(2018-1900,3-1,30);
+//		Date d5=new Date(2018-1900,5-1,1);
+//		Date d6=new Date(2018-1900,5-1,29);
+//		Date d7=new Date(2018-1900,6-1,15);
+//		Date d8=new Date(2018-1900,8-1,9);
+//		Date d9=new Date(2018-1900,8-1,22);
+//		Date d10=new Date(2018-1900,11-1,6);
+//		Date d11=new Date(2018-1900,12-1,25);
+//		publicHoliday.add(d11);
+//		publicHoliday.add(d10);
+//		publicHoliday.add(d9);
+//		publicHoliday.add(d8);
+//		publicHoliday.add(d7);
+//		publicHoliday.add(d6);
+//		publicHoliday.add(d5);
+//		publicHoliday.add(d4);
+//		publicHoliday.add(d3);
+//		publicHoliday.add(d2);
+//		publicHoliday.add(d1);
+//		try{
+//			FileOutputStream fileName= new FileOutputStream("holiday.ser");
+//			ObjectOutputStream out = new ObjectOutputStream(fileName);
+//			out.writeObject(publicHoliday);
+//			out.close();
+//			fileName.close();
+//			System.out.println("holiday is created");
+//		}catch(IOException i){
+//			i.printStackTrace();
+//			
+//			
+//		}
+//	}
+}
+
+//	}
 //	public static void main(String args[]){
 //		ArrayList<Cineplex> cineplexList=new ArrayList<Cineplex>();
 //		Cineplex cineplex1=new Cineplex("CinePlex@Jurong Point","Jurong Point",0);
@@ -77,10 +132,13 @@ public class BuildObjects {
 //			out.writeObject(cineplexList);
 //			out.close();
 //			fileout.close();
-//			System.out.println("cineplexList is ceated!");
+//			System.out.println("cineplexList is created!");
 //		}catch (IOException i) {
 //	         i.printStackTrace();
 //	      }
+//	}
+//	}
+
 		
 //		char seatArray[][]=new char[10][23] ;
 //		String fileName = "C:/Users/WUHA0/Desktop/seatplan/seatplan2.txt";
@@ -163,7 +221,10 @@ public class BuildObjects {
 
 //		}
 		
-    }
+//    }
+//
+
+
 
 
 

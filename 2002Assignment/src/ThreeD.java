@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ThreeD extends Movie{
@@ -26,6 +27,7 @@ public class ThreeD extends Movie{
 		System.out.println(this.movieStatus);
 		System.out.println("Total sale: "+this.sale);
 		System.out.println("Director: " + this.director);
+		System.out.println("BBStatus: "+this.bbStatus);
 		System.out.print("Casts: ");
 		for (int i = 0; i < this.casts.size(); i++) {
 			if (i != casts.size() - 1) System.out.print(casts.get(i) + ", ");
@@ -35,14 +37,15 @@ public class ThreeD extends Movie{
 		System.out.println(this.synopsis);
 		if(this.reviews!=null){
 			System.out.println("Overall Rating: " + this.getOverallRating());
-		for (int i = 0; i < this.reviews.size(); i++)
-			reviews.get(i).printReview();//!!!!
+			System.out.println("Reviews:");
+			for (int i = 0; i < this.reviews.size(); i++)
+				reviews.get(i).printReview();//!!!!
 		}
 		else{
 			System.out.println("Overall Rating: there is no rating now");
 			System.out.println("There is no review available now");
 		}
 		System.out.println();
-		}
+	}
 	
 }
